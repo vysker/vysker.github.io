@@ -9,9 +9,10 @@ description: >-
 baseurl: "" # e.g. /blog
 url: "" # e.g. http://example.com
 media-path: /media
+date_format: "%-d %B %Y"
 
 # Build settings
-theme: minima
+# theme: minima
 plugins:
   - jekyll-feed
 

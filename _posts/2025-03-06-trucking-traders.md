@@ -1,11 +1,10 @@
 ---
 layout: post
 title: "Trucking Traders"
+#subtitle: "Truck, trade, tussle"
 date: 2025-03-07 08:00:00 +0100
 categories: gamedev
 ---
-*"Truck, trade, tussle."*
-
 Welcome to the first blog post!
 This blog will mostly feature the game I've been working on.
 But I'm rambly, so I'll probably also dive into other topics like code and (game) design.
@@ -33,8 +32,6 @@ Trucking Traders consists of three core systems: trade, combat, and objectives.
 
 ### Trade
 
-*"Buy low, sell high."*
-
 Trading is the very core of the game.
 Everything revolves around items and trading.
 Different towns will have different item prices.
@@ -44,16 +41,13 @@ So you will constantly be traveling between towns to find good deals.
 <video width="100%" muted controls>
     <source src="{{site.media-path}}/trade.mp4" type="video/mp4">
 </video>
-
-<small>This is what trading and navigating around looks like. The third town has an event that affects prices for turrets.</small>
+<small><i>This is what trading and navigating around looks like. The third town has an event that affects prices for turrets.</i></small>
 
 Most items also have a use outside of trading.
 For instance, fuel is used for increased movement speed, and scrap for repairs.
 This makes each item intrinsically valuable, regardless of its monetary value.
 
 ### Combat
-
-*"Keep your cargo safe."*
 
 Once you've bought some goods, you'll want to transport them.
 But on the road, you'll encounter creatures trying to ambush you.
@@ -67,8 +61,7 @@ So the strategy is to visualize the battle before it starts.
 <video width="100%" muted controls>
     <source src="{{site.media-path}}/combat.mp4" type="video/mp4">
 </video>
-
-<small>Example of unit placement and combat. The pink cube is an "ambusher", which triggers combat when touched.</small>
+<small><i>Example of unit placement and combat. The pink cube is an "ambusher", which triggers combat when touched.</i></small>
 
 Any damage units take during combat will persist.
 Since these units return to your cargo after combat, you'll have damaged goods.
@@ -78,8 +71,6 @@ So you are incentivized to either fight well or repair/heal your units cheaply.
 
 ### Objectives
 
-*"In it to win it."*
-
 You'll be doing all of this trading and battling to score points.
 The first player to score 20 points wins the game.
 
@@ -88,9 +79,8 @@ More difficult objectives yield bigger points.
 And, perhaps more importantly, completed objectives give you rewards,
 which are things like "your units deal 20% more damage" or "increase cargo space by 2 slots".
 
-<img src="{{site.media-path}}/objectives.png">
-
-<small>Preview of objectives and rewards. There will be several categories to objectives for, each with their own rewards.</small>
+<img src="{{site.media-path}}/objectives.png" width="100%">
+<small><i>Preview of objectives and rewards. There will be several categories to objectives for, each with their own rewards.</i></small>
 
 You can score any objective at any time, and you get to pick the reward.
 This adds a deep strategic layer to the game that allows for many ways to victory.

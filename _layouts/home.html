@@ -1,0 +1,26 @@
+---
+layout: page
+---
+{%- if site.posts.size > 0 -%}
+    <h2>{{ page.list_title | default: "Posts" }}</h2>
+    <ul class="card-list">
+        {%- for post in site.posts -%}
+            <li>
+                <a href="{{ post.url | relative_url }}" class="no-deco" title="Read post '{{ post.title }}'">
+                    <div class="card compact">
+                        <div class="card-header">
+                            <h4>{{ post.title | escape }}</h4>
+                            <span class="card-subtitle">{{ post.date | date: site.date_format }}</span>
+                        </div>
+                        <div class="card-content">
+                            {%- if site.show_excerpts -%}
+                                {{ post.excerpt }}
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {%- endfor -%}
+    </ul>
+    <!-- <p class="rss-subscribe">subscribe <a href="{{ " /feed.xml" | relative_url }}">via RSS</a></p> -->
+{%- endif -%}

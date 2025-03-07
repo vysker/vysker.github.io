@@ -1,0 +1,18 @@
+<header class="top-nav" role="banner">
+    <div class="nav-inner page-width">
+        {%- assign default_paths = site.pages | map: "path" -%}
+        {%- assign page_paths = site.header_pages | default: default_paths -%}
+        <a href="/" class="site-title" title="{{ site.title }}">
+            <img src="{{ "/assets/logo.png" | relative_url }}" alt="{{ site.title }}" height="40"/>
+        </a>
+        <div id="desktop-menu">
+            {% include menu.html %}
+        </div>
+        <div id="mobile-menu">
+            <details>
+                <summary>Menu {% include menu_icon.html %}</summary>
+                {% include menu.html %}
+            </details>
+        <div id="mobile-menu">
+    </div>
+</header>
