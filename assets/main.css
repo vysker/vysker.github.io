@@ -24,7 +24,7 @@ body {
     margin: 0;
 }
 
-html, body, h1, h2, h3, h4, h5, h6, p {
+body {
     color: var(--font-color);
 }
 
@@ -70,11 +70,7 @@ footer {
     width: 100%;
     height: 240px;
     padding: 2rem 0;
-    background-color: var(--kinda-black);
-}
-
-footer span {
-    color: white;
+    border-top: 3px solid var(--divider);
 }
 
 footer .about {
