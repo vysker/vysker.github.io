@@ -2,12 +2,13 @@
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
 # You can access these variables like {{site.title}} etc.
-title: Gamedev log
+title: Keyboard Worrier
 # Used for SEO as well:
 description: >-
-  A blog about my gamedev adventures.
+  A blog about code, design, and gamedev.
 baseurl: "" # e.g. /blog
 url: "" # e.g. http://example.com
+media-path: /media
 
 # Build settings
 theme: minima
