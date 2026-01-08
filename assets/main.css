@@ -50,6 +50,10 @@ h3, .h3 {
     margin: 1.05rem 0;
 }
 
+.subtitle {
+    margin-top: -1rem;
+}
+
 hr {
     margin: 2rem 0;
     border: 1px solid lightgrey;
@@ -302,26 +306,47 @@ ul.card-list {
 
 /* Code - Syntax Highlighting */
 
-div.highlight {
+div.highlight, code, code span {
     background: #333;
     color: white;
+    font-family: 'Jetbrains Mono', monospace;
+    font-size: 16px;
+}
+/* Inline code */
+p > code {
+    padding: 0 4px;
+    background: #ccc;
+    color: black;
+}
+div.highlight table td {
+    padding: 5px;
+}
+div.highlight table pre {
+    margin: 0;
 }
 pre.highlight {
     padding: 10px 16px;
 }
-code span {
-    font-family: monospace;
-    font-size: 16px;
-}
-code span.c1 { /* Comments */
-    color: grey;
-}
-code span.k { /* Keywords */
-    color: lightskyblue;
-}
-code span.s1 { /* Strings */
+/* Comment */
+code .c1, code .c { color: grey; }
+/* Keyword */ 
+code .k, code .ow { color: lightskyblue; }
+/* Reserved word */ 
+code .kt { color: turquoise; }
+/* String */ 
+code .s, code .sa, code .sc, code .dl, code .sd, code .s2, code .se, code .sh, code .sx, code .s1, code .ss {
     color: peachpuff;
 }
+/* Function name */ 
+code .nf { color: bisque; }
+/* Built-in function */ 
+code .nb { color: hotpink; }
+/* Operator */ 
+code .o { color: pink; }
+/* Numeric literal */ 
+code .mi { color: darkseagreen; }
+/* Error */
+code .err { background-color: red; }
 
 /* Responsiveness */
 
