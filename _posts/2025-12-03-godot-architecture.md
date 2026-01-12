@@ -11,13 +11,13 @@ I propose to have a flat node hierarchy, as much as possible. More importantly, 
 
 Godot is all about Nodes. It's the gateway to all of the engine's beautiful features. Most tutorials and examples will have you attach scripts to these Nodes (or Scenes) to build your game. So you might have a Player scene with a Player script that controls its underlying Node tree. This feels clean and modular. And it's easy to reason about.
 
-Each Node behaves independently, and pretends the outside world doesn't exist. So there are then many ways to make Nodes interact with one another in ways that encourage clean code. This is a very sensible approach at first, but you may have already run into some issues.
+Each Node behaves independently, and pretends the outside world doesn't exist. So you will discover many approaches to make Nodes interact with one another in ways that encourage clean code. This is a very sensible approach at first, but you may have already run into some issues.
 
 Rather quickly, you will end up in situations where you are emitting signals up a tree, through multiple levels, until it reaches the place that needs it. Or you need to pass down a reference to some object multiple levels down this tree. Again, this feels clean and modular. But I would suggest that this arbitrary modularity is actually holding you back.
 
-It becomes especially painful when two separate Nodes, say, a vehicle and a player, need to interact in complex ways. Some player code needs to remain functional, like inventory management and looking around. But jumping in a vehicle is not allowed. Instead, the car needs to brake. This can result in some gnarly code that goes into both Nodes. Of course there are ways around this. But those are patches you don't need if you shift your mental model.
+It becomes especially painful when two separate Nodes, say, a vehicle and a player, need to interact in complex ways. While driving, some of the player code needs to remain functional, like inventory management and camera controls. But jumping while driving is not allowed. Instead of jumping, the car needs to brake. This can result in some gnarly code that both the player and vehicle scripts are responsible for. Of course there are ways around this. But those are patches you don't need if you shift your mental model.
 
-Allow me to present an alternative approach.
+Now that we have addressed some of the pain points of traditional Godot architecture, allow me to present an alternative approach.
 
 # A different approach
 
@@ -26,33 +26,32 @@ Essentially there are three components to your game:
 - Logic
 - View
 
-We'll dive into more detail on each of those later, but in one sentence, this is the mental model:
+We'll dive into more detail on each of those later, but, in one sentence, this is the mental model:
 >"Logic operates on State, and View represents that State."
 
-If you're familiar with common software engineering patterns, you will probably know this as MVC, or Model-View-Controller. In a sense, that is what I'm suggesting. But games are a totally different beast than business software. So it's only similar in spirit.
+If you're familiar with common software engineering patterns, you will probably know this as MVC, or Model-View-Controller. In a sense, that is what I'm suggesting. But games are a totally different beast than business software, so it's only similar in spirit.
 
 ## Lifting code out of the Node
 
-The main thing about this approach is that you start out with all game logic in a single script. Sure, split it out later. But at first, that single file will control all Nodes and Scenes in your game in top-down way. So all of that code in your Player script? Put it in that top-level script instead.
+The main thing about this approach is that you start out with all game logic in a single script. Of course you are free to split it up later. But at first, that single file will control all Nodes and Scenes in your game in a top-down way. Remember those player and vehicle scripts we mentioned earlier? All of that code should be moved to a top-level script instead.
 
-Next, do the same thing for your state. That `player_node.health` you are manipulating? Not allowed. It lifes in that same top-level script. Even better: put all state in a separate object. So updating health becomes `state.player_health += 10` followed by `player_node.set_health_bar(state.player_health)`. Use this approach for *everything*.
+Next, do the same thing for your state. That `player_node.health` you are manipulating? Not allowed. It lives in that same top-level script. Even better: put all state in a separate object. So updating health becomes `state.player_health += 10` followed by `player_node.set_health_bar(state.player_health)`. Use this approach for *everything*.
 
-At some point, you will end up with a gigantic top-level script. But you should be able to easily parse out all the patterns that appear in that file. Factor them out into separate scripts if you feel like it. But whatever you do, *do not* move the code into Nodes.
+At some point, you will end up with a gigantic top-level script. But you should be able to easily identify all the patterns that appear in that file. Factor them out into separate scripts if you feel like it. But whatever you do, *do not* move the code into Nodes.
 
 # What it looks like
 
-Here's a glimpse of what this architecture might look like in code. Mind you that this is a really "zoomed-in" showcase of the architecture. It ignores all boilerplate a game might have, like a Main class and such.
+Here's a glimpse of what this architecture might look like in practice. Mind you that this is a really "zoomed-in" showcase of the architecture. It ignores all boilerplate a typical project might have, like a Main script and such.
 
 ## State
 
 **In short:** We want one single source of truth: State. Essentially this is an in-memory save file.
 
-All *persistent* game state goes into a single State class. To be more specific:
-- Example data: all players and their positions, health, items, etc.
-- In short: this contains all data that you want to be able to save/load
-- Additionally, if your game is multiplayer, this is all data that is synced among clients
-- Does *not* include ephemeral data that you do not care about losing after loading from save
-- Does *not* include static data (resources), like the map representation, enemy stats, etc.
+All *persistent* game state goes into a single State class. This means it contains all the data that you want to be able to save/load. As an example, it will store data for all players and NPCs, with their positions, health, items, etc. Additionally, if your game is multiplayer, state contains all the data that is synced among clients.
+
+What it does *not* include is:
+- Ephemeral data that you do not care about losing after loading from save
+- Static data (resources), like the map, 3d models, audio, item descriptions, etc.
 
 This is an example of what it might look like:
 ```gdscript
