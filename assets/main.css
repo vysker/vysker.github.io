@@ -50,6 +50,10 @@ h3, .h3 {
     margin: 1.05rem 0;
 }
 
+em, i, strong, b {
+    color: firebrick;
+}
+
 .subtitle {
     margin-top: -1rem;
 }
